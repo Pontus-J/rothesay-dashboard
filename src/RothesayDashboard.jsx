@@ -605,10 +605,10 @@ function TabCostDrivers() {
                 <GlassPanel className="border-t-4 border-t-[#13A385]">
                     <h3 className="text-xl font-light mb-8 flex items-center text-white"><Activity className="w-6 h-6 mr-3 text-[#13A385]" /> Operating Metrics</h3>
                     <div className="space-y-2">
-                        <MetricRow label="Total OPEX" current="£277m" scenario={`£${modelMetrics.totalCosts}m`} delta={277 - modelMetrics.totalCosts} reverse={true} />
-                        <MetricRow label="Cost / AUM" current="3.9 bps" scenario={`${modelMetrics.costPerAUM} bps`} delta={3.9 - parseFloat(modelMetrics.costPerAUM)} reverse={true} />
-                        <MetricRow label="Cost / Policy" current="£275" scenario={`£${modelMetrics.costPerPolicy}`} delta={275 - modelMetrics.costPerPolicy} reverse={true} />
-                        <MetricRow label="Acq / Premium" current="1.2%" scenario={`${modelMetrics.acqCostPct}%`} delta={(1.2 - parseFloat(modelMetrics.acqCostPct)).toFixed(1)} reverse={true} />
+                        <MetricRow label="Total OPEX" current="£277m" scenario={`£${modelMetrics.totalCosts}m`} delta={modelMetrics.totalCosts - 277} reverse={true} />
+                        <MetricRow label="Cost / AUM" current="3.9 bps" scenario={`${modelMetrics.costPerAUM} bps`} delta={parseFloat(modelMetrics.costPerAUM) - 3.9} reverse={true} />
+                        <MetricRow label="Cost / Policy" current="£275" scenario={`£${modelMetrics.costPerPolicy}`} delta={modelMetrics.costPerPolicy - 275} reverse={true} />
+                        <MetricRow label="Acq. Efficiency" current="1.2%" scenario={`${modelMetrics.acqCostPct}%`} delta={parseFloat(modelMetrics.acqCostPct) - 1.2} reverse={true} />
                     </div>
                 </GlassPanel>
 
@@ -627,7 +627,7 @@ function TabCostDrivers() {
                     <div className="space-y-2">
                         <MetricRow label="MA Benefit" current="£884m" scenario={`£${modelMetrics.maBenefit}m`} delta={modelMetrics.maBenefit - 884} />
                         <MetricRow label="Pricing Edge" current="+25 bps" scenario={`+${modelMetrics.pricingAdvBps} bps`} delta={modelMetrics.pricingAdvBps - 25} />
-                        <MetricRow label="BEL Exp Load" current="30 bps" scenario={`${modelMetrics.expenseLoading} bps`} delta={30 - parseFloat(modelMetrics.expenseLoading)} reverse={true} />
+                        <MetricRow label="BEL Exp Load" current="30 bps" scenario={`${modelMetrics.expenseLoading} bps`} delta={parseFloat(modelMetrics.expenseLoading) - 30} reverse={true} />
                     </div>
                 </GlassPanel>
             </section>
