@@ -467,15 +467,27 @@ function TabCostDrivers() {
 
         const newPolicies = newBizPremium * 1e9 / 50000;
         const totalPolicies = 1004920 + newPolicies;
-        const adminCostTotal = inputs.costPerPolicy * totalPolicies / 1e6;
-        const totalCosts = adminCostTotal + inputs.techSpend + 55 + 30 + 27 + 80;
+
+        // Inflation impact on baseline costs (vs 3% assumed target)
+        const inflationMultiplier = 1 + ((inputs.expenseInflation - 3.0) / 100);
+        const fixedOverheads = (55 + 30 + 27) * inflationMultiplier;
+
+        // Win Rate impact on Acquisition Costs (Assume £1.5m cost per bid on average)
+        // Lower win rate = more bids required for same premium = higher acquisition costs
+        const bidsRequired = dealsWon / (inputs.winRate / 100);
+        const acqCostTotal = bidsRequired * 1.5 * inflationMultiplier;
+
+        const adminCostTotal = (inputs.costPerPolicy * totalPolicies / 1e6) * inflationMultiplier;
+        const techSpendDynamic = inputs.techSpend * inflationMultiplier;
+
+        const totalCosts = adminCostTotal + techSpendDynamic + fixedOverheads + acqCostTotal;
         const costPerAUM = totalCosts / (projectedAUM * 10);
-        const acqCostPct = 80 / (newBizPremium * 1000) * 100;
+        const acqCostPct = acqCostTotal / (newBizPremium * 1000) * 100;
 
         const maBenefit = inputs.matchingAdj / 10000 * projectedAUM * 1000;
         const pricingAdvBps = inputs.matchingAdj - 100;
 
-        const expenseLoading = (inputs.costPerPolicy * totalPolicies / 1e6 + inputs.techSpend) / (projectedAUM * 10);
+        const expenseLoading = (adminCostTotal + techSpendDynamic + fixedOverheads) / (projectedAUM * 10);
 
         return {
             totalCosts: Math.round(totalCosts),
