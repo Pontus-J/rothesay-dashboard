@@ -607,7 +607,7 @@ function TabCostDrivers() {
                     <div className="space-y-2">
                         <MetricRow label="Total OPEX" current="£277m" scenario={`£${modelMetrics.totalCosts}m`} delta={modelMetrics.totalCosts - 277} reverse={true} />
                         <MetricRow label="Cost / AUM" current="3.9 bps" scenario={`${modelMetrics.costPerAUM} bps`} delta={parseFloat(modelMetrics.costPerAUM) - 3.9} reverse={true} />
-                        <MetricRow label="Fully-loaded Cost/Pol" current="£275" scenario={`£${modelMetrics.costPerPolicy}`} delta={modelMetrics.costPerPolicy - 275} reverse={true} />
+                        <MetricRow label="Total Cost / Policy" current="£275" scenario={`£${modelMetrics.costPerPolicy}`} delta={modelMetrics.costPerPolicy - 275} reverse={true} />
                         <MetricRow label="Acq. Efficiency" current="1.2%" scenario={`${modelMetrics.acqCostPct}%`} delta={parseFloat(modelMetrics.acqCostPct) - 1.2} reverse={true} />
                     </div>
                 </GlassPanel>
