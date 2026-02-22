@@ -590,7 +590,7 @@ function TabCostDrivers() {
                                 <Cpu className="w-5 h-5 mr-3 text-[#13A385]" /> Operation Levers
                             </h3>
                             <div className="space-y-5">
-                                <SliderConfig label="Cost / Policy" min={30} max={150} step={5} unit="£" valueKey="costPerPolicy" value={inputs.costPerPolicy} onChange={handleSlider} />
+                                <SliderConfig label="Admin Cost / Policy" min={30} max={150} step={5} unit="£" valueKey="costPerPolicy" value={inputs.costPerPolicy} onChange={handleSlider} />
                                 <SliderConfig label="Tech Spend" min={15} max={60} step={1} unit="£m" valueKey="techSpend" value={inputs.techSpend} onChange={handleSlider} />
                                 <SliderConfig label="Matching Adj" min={50} max={200} step={5} unit="bps" valueKey="matchingAdj" value={inputs.matchingAdj} onChange={handleSlider} />
                                 <SliderConfig label="1Y Exp Inflation" min={1.5} max={5.0} step={0.1} unit="%" valueKey="expenseInflation" value={inputs.expenseInflation} onChange={handleSlider} />
@@ -607,7 +607,7 @@ function TabCostDrivers() {
                     <div className="space-y-2">
                         <MetricRow label="Total OPEX" current="£277m" scenario={`£${modelMetrics.totalCosts}m`} delta={modelMetrics.totalCosts - 277} reverse={true} />
                         <MetricRow label="Cost / AUM" current="3.9 bps" scenario={`${modelMetrics.costPerAUM} bps`} delta={parseFloat(modelMetrics.costPerAUM) - 3.9} reverse={true} />
-                        <MetricRow label="Cost / Policy" current="£275" scenario={`£${modelMetrics.costPerPolicy}`} delta={modelMetrics.costPerPolicy - 275} reverse={true} />
+                        <MetricRow label="Fully-loaded Cost/Pol" current="£275" scenario={`£${modelMetrics.costPerPolicy}`} delta={modelMetrics.costPerPolicy - 275} reverse={true} />
                         <MetricRow label="Acq. Efficiency" current="1.2%" scenario={`${modelMetrics.acqCostPct}%`} delta={parseFloat(modelMetrics.acqCostPct) - 1.2} reverse={true} />
                     </div>
                 </GlassPanel>
