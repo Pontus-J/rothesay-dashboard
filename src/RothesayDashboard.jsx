@@ -450,6 +450,7 @@ function TabCostDrivers() {
         newBiz: 15.7,
         avgDealSize: 1700,
         winRate: 15,
+        costPerQuote: 1.5,
         costPerPolicy: 80,
         techSpend: 35,
         matchingAdj: 125,
@@ -472,10 +473,10 @@ function TabCostDrivers() {
         const inflationMultiplier = 1 + ((inputs.expenseInflation - 3.0) / 100);
         const fixedOverheads = (55 + 30 + 27) * inflationMultiplier;
 
-        // Win Rate impact on Acquisition Costs (Assume £1.5m cost per bid on average)
-        // Lower win rate = more bids required for same premium = higher acquisition costs
+        // Win Rate impact on Acquisition Costs
+        // Lower win rate = more bids required to win the deal target = higher total acquisition costs
         const bidsRequired = dealsWon / (inputs.winRate / 100);
-        const acqCostTotal = bidsRequired * 1.5 * inflationMultiplier;
+        const acqCostTotal = bidsRequired * inputs.costPerQuote * inflationMultiplier;
 
         const adminCostTotal = (inputs.costPerPolicy * totalPolicies / 1e6) * inflationMultiplier;
         const techSpendDynamic = inputs.techSpend * inflationMultiplier;
@@ -577,9 +578,10 @@ function TabCostDrivers() {
                             <h3 className="text-white text-lg font-light tracking-widest uppercase mb-8 pb-4 border-b border-white/10 flex items-center">
                                 <TrendingUp className="w-5 h-5 mr-3 text-[#13A385]" /> Growth Assumptions
                             </h3>
-                            <div className="space-y-6">
+                            <div className="space-y-5">
                                 <SliderConfig label="Annual New Biz" min={5} max={25} step={0.5} unit="£bn" valueKey="newBiz" value={inputs.newBiz} onChange={handleSlider} />
                                 <SliderConfig label="Avg Deal Size" min={100} max={5000} step={100} unit="£m" valueKey="avgDealSize" value={inputs.avgDealSize} onChange={handleSlider} />
+                                <SliderConfig label="Cost / Quote" min={0.5} max={5.0} step={0.1} unit="£m" valueKey="costPerQuote" value={inputs.costPerQuote} onChange={handleSlider} />
                                 <SliderConfig label="Market Win Rate" min={5} max={40} step={1} unit="%" valueKey="winRate" value={inputs.winRate} onChange={handleSlider} />
                             </div>
                         </div>
@@ -587,11 +589,11 @@ function TabCostDrivers() {
                             <h3 className="text-white text-lg font-light tracking-widest uppercase mb-8 pb-4 border-b border-white/10 flex items-center">
                                 <Cpu className="w-5 h-5 mr-3 text-[#13A385]" /> Operation Levers
                             </h3>
-                            <div className="space-y-6">
+                            <div className="space-y-5">
                                 <SliderConfig label="Cost / Policy" min={30} max={150} step={5} unit="£" valueKey="costPerPolicy" value={inputs.costPerPolicy} onChange={handleSlider} />
                                 <SliderConfig label="Tech Spend" min={15} max={60} step={1} unit="£m" valueKey="techSpend" value={inputs.techSpend} onChange={handleSlider} />
                                 <SliderConfig label="Matching Adj" min={50} max={200} step={5} unit="bps" valueKey="matchingAdj" value={inputs.matchingAdj} onChange={handleSlider} />
-                                <SliderConfig label="Inflation Curve" min={1.5} max={5.0} step={0.1} unit="%" valueKey="expenseInflation" value={inputs.expenseInflation} onChange={handleSlider} />
+                                <SliderConfig label="1Y Exp Inflation" min={1.5} max={5.0} step={0.1} unit="%" valueKey="expenseInflation" value={inputs.expenseInflation} onChange={handleSlider} />
                             </div>
                         </div>
                     </div>
@@ -664,7 +666,7 @@ function TabCostDrivers() {
                     </div>
                 </GlassPanel>
             </section>
-        </div>
+        </div >
     );
 }
 
